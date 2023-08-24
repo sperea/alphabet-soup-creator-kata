@@ -1,26 +1,30 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <h2>Constructor de Sopa de Letras</h2>
+    <WordSearchGrid :size="10" :activeWord="activeWord" />
+    <br>
+    <WordInput />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import WordInput from './components/WordInput.vue';
+import WordSearchGrid from './components/WordSearchGrid.vue';
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    WordInput,
+    WordSearchGrid,
+  },
+  data() {
+    return {
+      activeWord: '',
+    };
+  },
+  methods: {
+    setActiveWord(word) {
+      this.activeWord = word;
+    },
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
