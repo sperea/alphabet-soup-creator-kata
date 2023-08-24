@@ -1,6 +1,4 @@
-# alphabet-soup-creator
-
-# Grid Component with Direction Modal
+# Alphabet Soup Creator
 
 This is a Vue.js component that displays a grid of cells and allows users to interact with a Direction Modal for each cell.
 
