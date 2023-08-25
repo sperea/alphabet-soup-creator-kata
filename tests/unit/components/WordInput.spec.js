@@ -64,10 +64,7 @@ describe('WordInputComponent', () => {
         });
 
         const deleteButtons = wrapper.findAll('button');
-
-        // Asumimos que el botón de eliminar es el tercero en la lista para la primera palabra
         await deleteButtons[2].trigger('click');
-
         expect(wrapper.vm.words).not.toContain('Word 1');
     });
 });
