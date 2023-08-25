@@ -53,4 +53,21 @@ describe('WordInputComponent', () => {
 
         expect(wrapper.vm.longestWordLength).toBe(6); // Length of "Banana"
     });
+
+    it('deletes a word when "Eliminar" button is clicked', async () => {
+        const wrapper = mount(WordInputComponent, {
+            data() {
+                return {
+                    words: ['Word 1', 'Word 2'],
+                };
+            },
+        });
+
+        const deleteButtons = wrapper.findAll('button');
+
+        // Asumimos que el botón de eliminar es el tercero en la lista para la primera palabra
+        await deleteButtons[2].trigger('click');
+
+        expect(wrapper.vm.words).not.toContain('Word 1');
+    });
 });

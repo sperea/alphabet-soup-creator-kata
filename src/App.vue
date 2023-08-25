@@ -3,7 +3,7 @@
     <h2>Constructor de Sopa de Letras</h2>
     <WordSearchGrid :size="10" :activeWord="activeWord" />
     <br>
-    <WordInput />
+    <WordInput @activeWordChanged="setActiveWord" />
   </div>
 </template>
 

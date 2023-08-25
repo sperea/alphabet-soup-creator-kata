@@ -18,10 +18,13 @@
         >
           <td><span class="indicator"></span></td>
           <td>
-            {{ w
-            }}&nbsp;&nbsp;<button @click="activateWord(index)">
+            {{ w }}
+            &nbsp;&nbsp;
+            <button @click="activateWord(index)">
               {{ activeWordIndex === index ? "Desactivar" : "Activar" }}
             </button>
+            &nbsp;&nbsp;
+            <button @click="deleteWord(index)">Eliminar</button>  <!-- Botón para eliminar -->
           </td>
         </tr>
       </tbody>
@@ -47,11 +50,21 @@ export default {
     },
     activateWord(index) {
       if (this.activeWordIndex === index) {
-        this.activeWordIndex = null; // Desactiva la palabra si se vuelve a hacer clic en la misma.
+        this.activeWordIndex = null;
+        this.$emit('activeWordChanged',"");
+
       } else {
         this.activeWordIndex = index;
+        this.$emit('activeWordChanged', this.words[this.activeWordIndex]);
+
       }
     },
+    deleteWord(index) {
+      this.words.splice(index, 1);
+      if (this.activeWordIndex === index) {
+        this.activeWordIndex = null;
+      }
+    }
   },
   computed: {
     longestWordLength() {

@@ -1,17 +1,20 @@
 <template>
   <div class="grid-container">
-    <div v-for="(row, rowIndex) in size" :key="rowIndex" class="grid-row">
-      <div 
-        v-for="(col, colIndex) in size" 
-        :key="colIndex" 
-        class="grid-cell" 
-        @click="showModal(rowIndex, colIndex)"
-      ></div>
+    <div v-for="(row, rowIndex) in grid" :key="rowIndex" class="grid-row">
+      <div
+          v-for="(col, colIndex) in row"
+          :key="colIndex"
+          :class="getCellClass(rowIndex, colIndex)"
+          @click="showModal(rowIndex, colIndex)"
+      >
+        {{ grid[rowIndex][colIndex] }}
+      </div>
     </div>
-    <DirectionModal 
-      :visible="isModalVisible"
-      @selected-direction="handleDirectionSelection"
-      @click-outside="hideModal"
+    <DirectionModal
+        :visible="isModalVisible"
+        :activeWord="activeWord"
+        @selected-direction="handleDirectionSelection"
+        @click-outside="hideModal"
     />
   </div>
 </template>
@@ -28,24 +31,37 @@ export default {
       type: Number,
       default: 10,
     },
+    activeWord: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
       isModalVisible: false,
+      grid: Array.from({ length: this.size }, () => Array.from({ length: this.size }, () => null)),
+      selectedCoordinates: null,
     };
   },
   methods: {
-    showModal() {
+    showModal(rowIndex, colIndex) {
       this.isModalVisible = true;
+      this.selectedCoordinates = { rowIndex, colIndex };
     },
     hideModal() {
       this.isModalVisible = false;
+      this.selectedCoordinates = null;
     },
     handleDirectionSelection(direction) {
       console.log('Selected Direction:', direction);
-      // Aquí puedes manejar la lógica después de seleccionar una dirección.
       this.hideModal();
     },
+    getCellClass(rowIndex, colIndex) {
+      return {
+        'grid-cell': true,
+        'selected': this.selectedCoordinates && this.selectedCoordinates.rowIndex === rowIndex && this.selectedCoordinates.colIndex === colIndex
+      };
+    }
   },
 };
 </script>
@@ -66,8 +82,8 @@ export default {
   border: 1px solid #000;
 }
 
-.directions {
-  margin-top: 10px;
-  text-align: center;
+.selected {
+  background-color: red;
+  color: white;
 }
 </style>
