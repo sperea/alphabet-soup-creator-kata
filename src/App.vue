@@ -3,7 +3,7 @@
     <div class="content-wrapper">
       <h2>Constructor de Sopa de Letras</h2>
       <div class="center-grid">
-        <WordSearchGrid :size="10" :activeWord="activeWord" />
+        <WordSearchGrid :size="20" :activeWord="activeWord" />
       </div>
       <WordInput />
     </div>
